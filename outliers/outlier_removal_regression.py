@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import pickle
 
 from outlier_cleaner import outlierCleaner
+from sklearn.linear_model import LinearRegression
 
 
 ### load up some practice data with outliers in it
@@ -28,13 +29,13 @@ ages_train, ages_test, net_worths_train, net_worths_test = train_test_split(ages
 
 
 
+reg = LinearRegression()
+reg.fit(ages_train, net_worths_train)
 
-
-
-
-
-
-
+print("The slope of the curve is {}".format(reg.coef_))
+print("The y intercept of the line is {}".format(reg.intercept_))
+print("The score of the regression learner is {}".format(reg.score(ages_train, net_worths_train)))
+print("The score of the regression learner for test data is {}".format(reg.score(ages_test, net_worths_test)))
 
 try:
     plt.plot(ages, reg.predict(ages), color="blue")
@@ -52,10 +53,6 @@ try:
 except NameError:
     print "your regression object doesn't exist, or isn't name reg"
     print "can't make predictions to use in identifying outliers"
-
-
-
-
 
 
 
@@ -78,6 +75,11 @@ if len(cleaned_data) > 0:
     plt.ylabel("net worths")
     plt.show()
 
+
+    print("The slope of the curve is {}".format(reg.coef_))
+    print("The y intercept of the line is {}".format(reg.intercept_))
+    print("The score of the regression learner is {}".format(reg.score(ages, net_worths)))
+    print("The score of the regression learner for test data is {}".format(reg.score(ages_test, net_worths_test)))
 
 else:
     print "outlierCleaner() is returning an empty list, no refitting to be done"
