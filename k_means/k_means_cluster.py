@@ -15,6 +15,7 @@ import sys
 from tools.feature_format import featureFormat, targetFeatureSplit
 
 from sklearn.cluster import KMeans
+from sklearn.preprocessing import MinMaxScaler
 
 
 def Draw(pred, features, poi, mark_poi=False, name="image.png", f1_name="feature 1", f2_name="feature 2"):
@@ -50,9 +51,14 @@ feature_1 = "salary"
 feature_2 = "exercised_stock_options"
 feature_3 = "total_payments"
 poi  = "poi"
-features_list = [poi, feature_1, feature_2, feature_3]
+features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
+scaler = MinMaxScaler()
+
+finance_features = scaler.fit_transform(finance_features)
+
+print ("200k, 1M transformer is {}".format(scaler.transform(numpy.array([[200000.0, 1000000.0]]))))
 
 minimum = sys.maxint
 maximum = 0
@@ -69,16 +75,19 @@ for k, v in data_dict.iteritems():
     if maximum < f2:
         maximum = f2
 
+print ("The minimum {} and maximum {}".format(minimum, maximum))
+
+
 ### in the "clustering with 3 features" part of the mini-project,
 ### you'll want to change this line to 
 ### for f1, f2, _ in finance_features:
 ### (as it's currently written, the line below assumes 2 features)
-for f1, f2, f3 in finance_features:
+for f1, f2 in finance_features:
     plt.scatter( f1, f2)
 
 plt.show()
 
-print ("The minimum {} and maximum {}".format(minimum, maximum))
+
 
 ### cluster here; create predictions of the cluster labels
 ### for the data and store them to a list called pred
