@@ -36,7 +36,7 @@ word_data = []
 temp_counter = 0
 
 for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
-    stop_words = ["sara", "shackleton", "chris", "germani"]
+    stop_words = ["sara", "shackleton", "chris", "germani", "sshacklensf", "cgermannsf"] # got sshacklensf from feature_selection # got cgermannsf from feature selection using next iteration.
     for path in from_person:
         path = os.path.join('..', path[:-1])
         email = open(path, "r")
