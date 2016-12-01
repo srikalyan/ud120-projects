@@ -73,6 +73,12 @@ t0 = time()
 pca = RandomizedPCA(n_components=n_components, whiten=True).fit(X_train)
 print "done in %0.3fs" % (time() - t0)
 
+
+print "The 0 pca components ({}) are \n{}".format(len(pca.components_[0]), pca.components_[0])
+print "The 1 pca components ({}) are \n{}".format(len(pca.components_[1]), pca.components_[1])
+print "The explained variances ({}) are \n {}".format(len(pca.explained_variance_), pca.explained_variance_)
+print "The explained variances ratio ({}) are \n {}".format(len(pca.explained_variance_ratio_), pca.explained_variance_ratio_)
+
 eigenfaces = pca.components_.reshape((n_components, h, w))
 
 print "Projecting the input data on the eigenfaces orthonormal basis"
