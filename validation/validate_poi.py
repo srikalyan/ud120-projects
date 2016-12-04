@@ -16,6 +16,7 @@ from tools.feature_format import featureFormat, targetFeatureSplit
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import cross_validation
 from sklearn.metrics import accuracy_score
+from sklearn.model_selection import GridSearchCV
 
 data_dict = pickle.load(open("../final_project/final_project_dataset.pkl", "r") )
 
@@ -32,10 +33,15 @@ features_train, features_test, labels_train, labels_test = cross_validation.trai
                                                                                              random_state=42)
 
 
-### it's all yours from here forward!  
-
+### it's all yours from here forward!
 clf = DecisionTreeClassifier()
+# parameters = {'min_samples_leaf':[10, 20, 30]}
+# dt = DecisionTreeClassifier()
+# clf = GridSearchCV(dt, parameters)
+
 clf.fit(features_train, labels_train)
+
+# print "The best parameters are ".format(sorted(clf.cv_results_.keys()))
 
 predict_labels = clf.predict(features_test)
 
